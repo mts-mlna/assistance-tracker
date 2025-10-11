@@ -1,14 +1,12 @@
 import { BrowserRouter, Route, Router, Routes } from "react-router"
 import Asistencia from "./components/Asistencia"
+import Header from "./components/Header"
 
 function App() {
   return (
     <BrowserRouter>
-    <div className="container mx-auto">
-      <Routes>
-        <Route path="/" element={<Asistencia />} />
-        <Route path="/tomar-asistencia" element={<Asistencia />} />
-      </Routes>
+    <div>
+      <Header />
     </div>
     </BrowserRouter>
   )

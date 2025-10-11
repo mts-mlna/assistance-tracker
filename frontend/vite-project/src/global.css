@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+header{
+    background: #ffffff;
+    display: flex;
+    height: 100px;
+}
