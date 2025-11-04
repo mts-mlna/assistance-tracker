@@ -1,11 +1,19 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Sistema de administracion de asistencia para alumnos",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "server": "nodemon app.js"
   },
-  "author": "",
+  "author": "Matias Molina",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "sqlite3": "^5.1.7"
+  }
 }
