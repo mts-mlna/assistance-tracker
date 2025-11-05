@@ -21,4 +21,3 @@ App.use('/api', RutasLogin);
 App.listen(PORT,()=>{ 
     console.log(`🚀 http://localhost:${PORT}`);
 });
-
