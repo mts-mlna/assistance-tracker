@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'TTNorms';
+    src: url(../assets/TTNormsProVariable.ttf);
+}
+
+.sidebar{
+  font-family: 'TTNorms', sans-serif;
+  font-weight: bold;
+  position: fixed;
+  top: 0;
+  right: -250px; /* Oculto por defecto */
+  width: 250px;
+  height: 100%;
+  background: #111;
+  color: white;
+  transition: right 0.3s ease;
+  z-index: 1000;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between !important;
+}
+
+.sidebar.open{
+  right: 0; /* Se muestra */
+}
+
+.sidebar-content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 12px;
+  padding: 10px 20px;
+  justify-content: space-between;
+}
+
+.sidebar-content ul li{
+  list-style-type: none;
+  justify-content: left;
+  display: flex;
+  width: 100%;
+}
+
+.sidebar-content ul li a{
+  width: 100%;
+  color: #F9F9F9;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 6.4px;
+}
+
+.sidebar-content a:hover {
+  background: #333;
+}
+
+/* Botón de cerrar */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Fondo oscuro */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.sidebar-content ul{
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.profile{
+  display: flex;
+  font-family: 'TTNorms', sans-serif;
+}
+
+.profile a{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile a div{
+  display: flex;
+  flex-direction: column;
+}
+
+.profile a div h1{
+  font-size: 20px;
+  line-height: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.profile a div p{
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.profile a img{
+  height: 75px;
+  border-radius: 100px;
+  padding: 5px;
+}
