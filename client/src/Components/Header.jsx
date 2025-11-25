@@ -13,13 +13,19 @@ const Header = ({ onToggleSidebar }) => {
                 </li>
                 <li>
                     <a href="">
-                        <p>inicio</p>
+                        <p>Inicio</p>
                         <div className='underline'></div>
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        <p>no</p>
+                        <p>Contacto</p>
+                        <div className='underline'></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>Información</p>
                         <div className='underline'></div>
                     </a>
                 </li>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Facu from '../assets/146157552.jfif'
+import guest from '../assets/guest.jpg'
 import './Sidebar.css'
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -12,19 +12,26 @@ const Sidebar = ({ isOpen, onClose }) => {
 
             <nav className='sidebar-content'>
                 <ul>
-                    <li><a href="">Inixio</a></li>
-                    <li><a href="">Sobre Noxotros</a></li>
-                    <li><a href="">Configuraxion</a></li>
+                    <li><a href="">Dashboard</a></li>
+                    <li><a href="">Mis cursos</a></li>
+                    <li><a href="">Tomar asistencia</a></li>
+                    <li><a href="">Mis alumnos</a></li>
+                    <li><a href="">Iniciar sesión</a></li>
+                    <li><a href="">Crear cuenta</a></li>
                 </ul>
                 <ul>
                     <li className='profile'>
                         <a href="">
-                            <img src={Facu} alt="" />
+                            <img src={guest} alt="" />
                             <div>
-                                <h1>Gareis, Pablo</h1>
-                                <p>Profesor</p>
+                                <h1>Invitado</h1>
+                                <p>Sin sesión</p>
                             </div>
                         </a>
+                    </li>
+                    <li className='action-buttons'>
+                        <a href="" className='edit'>Editar perfil</a>
+                        <a href="" className='logout'>Cerrar sesión</a>
                     </li>
                 </ul>
             </nav>

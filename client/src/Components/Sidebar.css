@@ -113,3 +113,8 @@
   border-radius: 100px;
   padding: 5px;
 }
+
+.action-buttons{
+  display: flex;
+  flex-direction: column;
+}
