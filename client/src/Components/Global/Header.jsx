@@ -1,6 +1,7 @@
 import React from 'react'
 import Logo from '../../assets/logo.png'
 import Sidebar from './Sidebar';
+import { Link } from 'react-router-dom'
 import { useState } from 'react';
 
 const Header = () => {
@@ -10,15 +11,16 @@ const Header = () => {
         <nav className='navigation'>
             <ul>
                 <li>
-                    <a href="">
-                        <img src={Logo} alt="" className='logo'/>
-                    </a>
+                    <Link to="/" className='logo'>
+                        <img src={Logo} alt=""/>
+                        <span>Class Manager</span>
+                    </Link>
                 </li>
                 <li>
-                    <a href="">
+                    <Link to="/">
                         <p>Inicio</p>
                         <div className='underline'></div>
-                    </a>
+                    </Link>
                 </li>
                 <li>
                     <a href="">
@@ -36,7 +38,7 @@ const Header = () => {
             <ul>
                 <li>
                     <button className='open-sidebar' onClick={() => setSidebarOpen(true)}>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F9F9F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9.5H3M21 4.5H3M21 14.5H3M21 19.5H3"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                     </button>
                 </li>
             </ul>

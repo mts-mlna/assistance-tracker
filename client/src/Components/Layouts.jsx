@@ -2,6 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './Global/Header'
 import Table from './Pages/Table'
+import Login from './Pages/Login'
+import Home from './Pages/Home'
 
 function Layouts() {
   return (
@@ -9,7 +11,9 @@ function Layouts() {
       <Router>
         <Header />
         <Routes>
+          <Route path='/' element={<Home/>}/>
           <Route path='/Table' element={<Table/>}/>
+          <Route path='/login' element={<Login/>}/>
         </Routes>
       </Router>
     </>
