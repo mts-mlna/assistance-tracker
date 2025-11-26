@@ -1,7 +1,10 @@
 import React from 'react'
-import Logo from '../assets/logo.png'
+import Logo from '../../assets/logo.png'
+import Sidebar from './Sidebar';
+import { useState } from 'react';
 
-const Header = ({ onToggleSidebar }) => {
+const Header = () => {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
   return(
     <header>
         <nav className='navigation'>
@@ -32,12 +35,13 @@ const Header = ({ onToggleSidebar }) => {
             </ul>
             <ul>
                 <li>
-                    <button className='open-sidebar' onClick={onToggleSidebar}>
+                    <button className='open-sidebar' onClick={() => setSidebarOpen(true)}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F9F9F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 9.5H3M21 4.5H3M21 14.5H3M21 19.5H3"/></svg>
                     </button>
                 </li>
             </ul>
         </nav>
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)}/>
       </header>
   )
 }

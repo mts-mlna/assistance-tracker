@@ -1,6 +1,7 @@
 import React from 'react'
-import guest from '../assets/guest.jpg'
-import './Sidebar.css'
+import { Link } from 'react-router-dom'
+import guest from '../../assets/guest.jpg'
+import '../Layouts.css'
 
 const Sidebar = ({ isOpen, onClose }) => {
     return (
@@ -12,7 +13,9 @@ const Sidebar = ({ isOpen, onClose }) => {
 
             <nav className='sidebar-content'>
                 <ul>
-                    <li><a href="">Dashboard</a></li>
+                    <li>
+                        <Link to="/Table">Dashboard</Link>
+                    </li>
                     <li><a href="">Mis cursos</a></li>
                     <li><a href="">Tomar asistencia</a></li>
                     <li><a href="">Mis alumnos</a></li>
