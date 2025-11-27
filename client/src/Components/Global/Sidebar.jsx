@@ -20,7 +20,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                     <li><a href="">Tomar asistencia</a></li>
                     <li><a href="">Mis alumnos</a></li>
                     <li><Link to="/login" onClick={onClose}>Iniciar sesión</Link></li>
-                    <li><Link to="/signup">Crear cuenta</Link></li>
+                    <li><Link to="/signup" onClick={onClose}>Crear cuenta</Link></li>
                 </ul>
                 <ul>
                     <li className='profile'>

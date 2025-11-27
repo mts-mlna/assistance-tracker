@@ -104,7 +104,34 @@ function Table() {
 
     setStudents(sorted);
     setSorcAsc(!sortAsc);
+  };
+
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null);
+
+  const handleClickSave = () => {
+    setConfirmAction("guardar")
+    setShowConfirm(true)
   }
+
+  const handleClickSP = () => {
+    setConfirmAction("sp")
+    setShowConfirm(true)
+  }
+
+  const handleConfirm = () => {
+    if (confirmAction === "guardar") {
+      console.log("Se guardaron los cambios")
+    }
+
+    if (confirmAction === "sp") {
+      console.log("Acción S/P ejecutada")
+    }
+
+    setShowConfirm(false)
+    setConfirmAction(null)
+  }
+
 
   return (
     <main className='dashboard-main'>
@@ -124,8 +151,8 @@ function Table() {
             <button><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
           </div>
           <div className='header-actions'>
-            <button className='sp'>S/P</button>
-            <button className='save-changes'>Guardar</button>
+            <button className='sp' onClick={handleClickSP}>S/P</button>
+            <button className='save-changes' onClick={handleClickSave}>Guardar</button>
           </div>
         </div>
       </section>
@@ -167,7 +194,7 @@ function Table() {
                 <td>{student.curso}</td>
                 <td>{student.grupo}</td>
                 <td>{student.asistencia}</td>
-                <td>1/90</td>
+                <td>25/33</td>
                 <td>75%</td>
                 <td className='table-actions'>
                   <button className='present'><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Presente</button>
@@ -180,6 +207,23 @@ function Table() {
           </table>
         </div>
       </section>
+      {showConfirm && (
+      <div className="popup-overlay">
+        <div className="popup">
+          <h2>¿Confirmar acción?</h2>
+          <p>
+            {confirmAction === "guardar" && "Al confirmar esta acción se guardarán las asistecias e inasistencias. ¿Estás seguro?"}
+            {confirmAction === "sp" && "Al confirmar esta acción se te marcará como ausente. Esta clase será eliminada del total de clases del cuatrimestre (pasarán a ser 32 en vez de 33). ¿Quieres continuar?"}
+          </p>
+
+          <div className="popup-buttons">
+            <button onClick={handleConfirm} className='popup-confirm'>Confirmar</button>
+            <button onClick={() => setShowConfirm(false)} className='popup-cancel'>Cancelar</button>
+          </div>
+        </div>
+      </div>
+      )}
+
     </main>
   )
 }
