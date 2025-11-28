@@ -45,14 +45,14 @@ function Signup() {
         <div className='password-input'>
           <label htmlFor="">Contraseña</label>
           <div className='password-field'>
-            <input type={showPassword ? "text" : "password"} name="" id="" maxLength={19} placeholder='••••••••' value={password} onChange={handlePasswordChange} />
+            <input type={showPassword ? "text" : "password"} name="" id="" placeholder='••••••••' value={password} onChange={handlePasswordChange} />
             <button className='register-show-password' onClick={() => setShowPassword(!showPassword)}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
           </div>
         </div>
         <div className='password-input'>
           <label htmlFor="">Confirmar contraseña</label>
           <div className='password-field'>
-            <input type={showPassword ? "text" : "password"} name="" id="" maxLength={19} placeholder='••••••••' value={password} onChange={handlePasswordChange} />
+            <input type={showPassword ? "text" : "password"} name="" id="" placeholder='••••••••' value={password} onChange={handlePasswordChange} />
             <button className='register-show-password' onClick={() => setShowPassword(!showPassword)}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
           </div>
         </div>

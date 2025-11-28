@@ -123,6 +123,9 @@ header{
 }
 
 .sidebar-content ul li a{
+    display: flex;
+    align-items: center;
+    gap: 5px;
   width: 100%;
   color: #F9F9F9;
   text-decoration: none;
@@ -344,20 +347,20 @@ header{
     border-bottom: 2px solid #111;
 }
 
-.checkbox-wrapper {
+.professor-checkbox-wrapper {
   position: relative;
   display: inline-block;
   width: 20px;
   height: 20px;
+  margin-top: 5px;
 }
 
-.checkbox-wrapper input {
+.professor-checkbox-wrapper input {
   position: absolute;
   opacity: 0;
   width: 20px;
   height: 20px;
   margin: 0;
-  cursor: pointer;
 }
 
 .custom-checkbox {
@@ -382,11 +385,11 @@ header{
   display: none;
 }
 
-.checkbox-wrapper input:checked + .custom-checkbox {
+.professor-checkbox-wrapper input:checked + .custom-checkbox {
   background: #5294FF;
 }
 
-.checkbox-wrapper input:checked + .custom-checkbox::after {
+.professor-checkbox-wrapper input:checked + .custom-checkbox::after {
   display: block;
 }
 
@@ -464,10 +467,6 @@ header{
     transition: transform .1s ease;
 }
 
-.search button:active{
-    box-shadow: 0 0 #111;
-}
-
 .header-actions{
     display: flex;
     width: 50%;
@@ -491,6 +490,31 @@ header{
     font-size: 16px;
 }
 
+.table-row-email{
+    display: block !important;
+    max-width: 100px;   /* O el ancho que necesites */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-row-phone{
+    display: block !important;
+    max-width: 100px;   /* O el ancho que necesites */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-row-name-surname{
+    display: block !important;
+    color: #111;
+    max-width: 85px;   /* O el ancho que necesites */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .present{
     background: #04E17A;
     border: 2px solid #111;
@@ -499,8 +523,7 @@ header{
 }
 
 .present:active{
-    background: #04c86d
-;
+    background: #04c86d;
 }
 
 .absent{
@@ -694,7 +717,7 @@ header{
 }
 
 .email-input input, .password-input input{
-    padding: 10px;
+    padding: 10px 50px 10px 10px;
     font-family: 'TTNorms', sans-serif;
     font-size: 16px;
     border: 2px solid #111;
@@ -713,12 +736,12 @@ header{
 
 .password-field button{
     display: flex;
+    background: #FFF;
     align-items: center;
     position: absolute;
-    margin-left: 396px;
+    margin-left: 398px;
     border-radius: 0 5px 5px 0;
     margin-top: -44px;
-    background: none;
     border: 2px solid #111;
     padding: 10px;
     cursor: pointer;
@@ -821,5 +844,150 @@ header{
 }
 
 .register-show-password{
-    margin-left: 328px !important;
+    margin-left: 330px !important;
+}
+
+/* Dashboard del director/vice/secretario */
+
+.table-actions-principal{
+    display: flex;
+    margin-bottom: -1px;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-actions-principal button{
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    margin-bottom: 2px;
+    gap: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+}
+
+.principal-table-border{
+    display: flex;
+    justify-content: center;
+    max-height: 434px;
+    width: 95%;
+    overflow-y: auto;
+    border: 2px solid #111;
+    border-right: 4px solid #111;
+}
+
+.add-student{
+    display: flex;
+    width: 30% !important;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    background: #04E17A;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #111;
+    border-radius: 5px;
+    box-shadow: 4px 4px #111;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+.add-student:active{
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 #111;
+}
+
+.delete-student{
+    display: flex;
+    width: 35% !important;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    background: #FF4D50;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #111;
+    border-radius: 5px;
+    box-shadow: 4px 4px #111;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+.delete-student:active{
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 #111;
+}
+
+.principal-dashboard-main{
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 19.5px 0;
+    background-color: #FFE0E0;
+    background-image: linear-gradient(90deg,#8080804d 1px,#0000 0),linear-gradient(#80808090 1px,#0000 0);
+    background-size: 40px 40px;
+}
+
+.principal-table{
+    width: 100%;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+    border-collapse: collapse;
+    background: #F9F9F9;
+}
+
+.principal-table thead{
+    color: #111;
+    text-align: left;
+}
+
+.principal-table thead tr{
+    outline: 2px solid #111;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.principal-table thead tr th{
+    padding: 10px;
+    background: #F9F9F9;
+    z-index: 100;
+}
+
+.principal-table tbody tr td{
+    padding: 10px;
+    border-bottom: 2px solid #111;
+}
+
+.principal-search-inner{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;   
+}
+
+.principal-checkbox-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+}
+
+.principal-checkbox-wrapper input {
+  position: absolute;
+  opacity: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+.principal-checkbox-wrapper input:checked + .custom-checkbox {
+  background: #5294FF;
+}
+
+.principal-checkbox-wrapper input:checked + .custom-checkbox::after {
+  display: block;
 }

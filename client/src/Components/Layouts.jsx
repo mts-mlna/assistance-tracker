@@ -5,6 +5,7 @@ import Table from './Pages/Table'
 import Login from './Pages/Login'
 import Home from './Pages/Home'
 import Signup from './Pages/Signup'
+import PrincipalTable from './Pages/PrincipalTable'
 
 function Layouts() {
   return (
@@ -16,6 +17,7 @@ function Layouts() {
           <Route path='/Table' element={<Table/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
+          <Route path='/admin/students' element={<PrincipalTable/>}/>
         </Routes>
       </Router>
     </>
