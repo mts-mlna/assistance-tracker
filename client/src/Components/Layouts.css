@@ -290,7 +290,7 @@ header{
 .table-border{
     display: flex;
     justify-content: center;
-    max-height: 339px;
+    max-height: 378px;
     width: 90%;
     overflow-y: auto;
     border: 2px solid #111;
@@ -421,7 +421,7 @@ header{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 17.5px 0;
+    padding: 10px 0;
     background-color: #FFE0E0;
     background-image: linear-gradient(90deg,#8080804d 1px,#0000 0),linear-gradient(#80808090 1px,#0000 0);
     background-size: 40px 40px;
@@ -475,8 +475,29 @@ header{
 }
 
 .header-actions button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     width: 20%;
     cursor: pointer;
+}
+
+.header-actions .erase-selection{
+    width: 30%;
+    background: #FF4D50;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #111;
+    border-radius: 5px;
+    box-shadow: 4px 4px #111;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+.header-actions .erase-selection:active{
+    box-shadow: 0 0 #111;
+    transform: translate(4px, 4px);
 }
 
 .table-actions button{
@@ -543,7 +564,7 @@ header{
     border-radius: 5px;
 }
 
-.sp{
+.absent{
     background: #FF4D50;
     font-family: 'TTNorms', sans-serif;
     font-weight: bold;
@@ -554,7 +575,7 @@ header{
     transition: transform .1s ease, box-shadow .1s ease;
 }
 
-.sp:active{
+.absent:active{
     box-shadow: 0 0 #111;
     transform: translate(4px, 4px);
 }
@@ -576,7 +597,7 @@ header{
 }
 
 .my-class-inner h1{
-    font-size: 65px;
+    font-size: 47px;
     letter-spacing: 2px;
     font-weight: 800;
     font-family: 'TTNorms', sans-serif;
@@ -600,14 +621,36 @@ header{
     font-size: 16px;
     font-family: 'TTNorms', sans-serif;
     display: flex;
+    justify-content: center;
     flex-direction: column;
-    gap: 25px;
     font-weight: bold;
     background: #F9F9F9;
     border: 2px solid #111;
     border-radius: 5px;
     box-shadow: 4px 4px #111;
     padding: 10px;
+    height: 64px;
+}
+
+.edit-myclass{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: #5294FF;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #111;
+    border-radius: 5px;
+    box-shadow: 4px 4px #111;
+    transition: transform .1s ease, box-shadow .1s ease;
+    height: 64px;
+    padding: 10px;
+}
+
+.edit-myclass:active{
+    box-shadow: 0 0 #111;
+    transform: translate(4px, 4px);
 }
 
 /* Pantalla de inicio */
@@ -990,4 +1033,201 @@ header{
 
 .principal-checkbox-wrapper input:checked + .custom-checkbox::after {
   display: block;
+}
+
+/* Datos del alumno y padres */
+
+.student-info-main{
+    font-family: 'TTNorms', sans-serif;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    padding: 19.5px 0;
+    background-color: #FFE0E0;
+    background-image: linear-gradient(90deg,#8080804d 1px,#0000 0),linear-gradient(#80808090 1px,#0000 0);
+    background-size: 40px 40px;   
+}
+
+.student-info-inner{
+    background: #FFF;
+    border: 2px solid #111;
+    box-shadow: 4px 4px #111;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-direction: column;
+    width: 35%;
+}
+
+.student-info-inner h1{
+    font-size: 16px;
+}
+
+.student-info-inner div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.student-info-inner div input{
+    padding: 10px;
+    border: 2px solid #111;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #FFF;
+    transition: border .1s ease, background .1s ease;
+}
+
+.student-info-inner div input:focus-within{
+    outline: 2px solid #FFF;
+    box-shadow: 0 0 0 4px #111;
+}
+
+.student-info-inner div input:disabled{
+    border: 2px solid #F9F9F9;
+    background: #F9F9F9;
+    cursor: not-allowed;
+}
+
+.student-info-inner div label{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.student-info-inner div select{
+    padding: 10px;
+    font-size: 16px;
+    background: #FF4D50;
+    border: 2px solid #111;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.student-info-inner div select:disabled{
+    border: 2px solid #F9F9F9;
+    cursor: not-allowed;
+}
+
+.retire-auth{
+    flex-direction: row !important;
+    justify-content: space-between;
+}
+
+.parent-info-inner{
+    background: #FFF;
+    border: 2px solid #111;
+    box-shadow: 4px 4px #111;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    width: 35%;
+}
+
+.parent-info-inner h1{
+    font-size: 16px;
+}
+
+.parent-info-inner div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.parent-info-inner div input{
+    padding: 10px;
+    border: 2px solid #111;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border .1s ease, background .1s ease;
+}
+
+.parent-info-inner div input:focus-within{
+    outline: 2px solid #FFF;
+    box-shadow: 0 0 0 4px #111;
+}
+
+.parent-info-inner div input:disabled{
+    border: 2px solid #F9F9F9;
+    background: #F9F9F9;
+    cursor: not-allowed;
+}
+
+.parent-info-inner div textarea{
+    border: 2px solid #111;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'TTNorms', sans-serif;
+    resize: vertical;
+    min-height: 44px;
+    height: 44px;
+}
+
+.parent-info-inner div textarea:focus-within{
+    outline: 2px solid #FFF;
+    box-shadow: 0 0 0 4px #111;
+}
+
+.parent-info-inner div textarea::-webkit-scrollbar-track{
+    border-radius: 0px 5px 5px 0px;
+    border-left: 2px solid #111;
+    cursor: default;
+}
+
+.parent-info-inner div textarea::-webkit-scrollbar-thumb{
+    cursor: pointer;
+}
+
+::-webkit-resizer{
+    background-color: transparent;
+    background-image: url(../assets/chevron-down.svg);
+    background-size: contain;
+    border-left: 2px solid #111;
+    border-top: 2px solid #111;
+}
+
+.parent-info-inner div textarea:disabled{
+    cursor: not-allowed;
+}
+
+.parent-info-inner div label{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.si-action-inner{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.si-action-inner button{
+    border: 2px solid #111;
+    box-shadow: 4px 4px #111;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+.si-action-inner button:active{
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 #111;
+}
+
+.si-save{
+    background: #04C86D;
+}
+.si-allow-edit{
+    background: #5294FF;
+}
+
+.si-delete{
+    background: #FF4D50;
 }

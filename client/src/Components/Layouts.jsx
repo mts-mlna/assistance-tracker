@@ -6,6 +6,8 @@ import Login from './Pages/Login'
 import Home from './Pages/Home'
 import Signup from './Pages/Signup'
 import PrincipalTable from './Pages/PrincipalTable'
+import Classes from './Pages/Classes'
+import StudentInfo from './Pages/StudentInfo'
 
 function Layouts() {
   return (
@@ -18,6 +20,8 @@ function Layouts() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/admin/students' element={<PrincipalTable/>}/>
+          <Route path='/classes' element={<Classes/>}/>
+          <Route path='/admin/info/1' element={<StudentInfo/>}/>
         </Routes>
       </Router>
     </>

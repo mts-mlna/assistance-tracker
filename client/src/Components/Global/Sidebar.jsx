@@ -13,12 +13,10 @@ const Sidebar = ({ isOpen, onClose }) => {
 
             <nav className='sidebar-content'>
                 <ul>
-                    <li>
-                        <Link to="/Table">Dashboard</Link>
-                    </li>
-                    <li><a href="">Mis cursos</a></li>
-                    <li><a href="">Tomar asistencia</a></li>
-                    <li><a href="">Mis alumnos</a></li>
+                    <li><Link to="/Table" onClick={onClose}>Dashboard</Link></li>
+                    <li><Link to="/classes" onClick={onClose}>Mis cursos</Link></li>
+                    <li><a href="" onClick={onClose}>Tomar asistencia</a></li>
+                    <li><a href="" onClick={onClose}>Mis alumnos</a></li>
                     <li><Link to="/login" onClick={onClose}>Iniciar sesión</Link></li>
                     <li><Link to="/signup" onClick={onClose}>Crear cuenta</Link></li>
                     <li><Link to="/admin/students" onClick={onClose}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F9F9F9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Panel admin.</Link></li>

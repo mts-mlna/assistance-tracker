@@ -60,7 +60,7 @@ function Signup() {
           <button>Registrarme</button>
         </div>
         <div className='link-register'>
-          <p>¿Ya tienes cuenta?<Link to="/login">¡Inicia sesión!</Link></p>
+          <p>¿Ya tienes cuenta? <Link to="/login">¡Inicia sesión!</Link></p>
         </div>
       </div>
     </main>

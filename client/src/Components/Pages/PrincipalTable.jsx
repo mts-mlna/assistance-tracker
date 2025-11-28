@@ -185,7 +185,7 @@ function PrincipalTable() {
                     <span className='custom-checkbox'></span>
                   </label>
                 </td>
-                <td><Link><span className='table-row-name-surname'>{student.nombre}</span></Link></td>
+                <td><Link to="/admin/info/1"><span className='table-row-name-surname'>{student.nombre}</span></Link></td>
                 <td>47.517.813</td>
                 <td><span className='table-row-email'>matiasezequielmolina2006@gmail.com</span></td>
                 <td><span className='table-row-phone'>+11 3045-7715</span></td>
