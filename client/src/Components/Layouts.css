@@ -1231,3 +1231,141 @@ header{
 .si-delete{
     background: #FF4D50;
 }
+
+/* Mis clases */
+
+.my-classes{
+    display: flex;
+    justify-content: center;
+    padding: 46px 0px;
+    gap: 50px;
+    background: #FFE0E0;
+    background-image: linear-gradient(90deg, #80808033 1px, #0000 0), linear-gradient(#80808033 1px, #0000 0);
+    background-size: 40px 40px;   
+}
+
+.my-classes-inner{
+    width: 90%;
+}
+
+.my-classes-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.class{
+    font-family: 'TTNorms', sans-serif;
+    background: #FF4D50;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 2px solid #111;
+    border-radius: 5px;
+    box-shadow: 4px 4px #111;
+    gap: 10px;
+}
+
+.class-card-header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.class-card-header h1{
+    white-space: nowrap;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+}
+
+.class-card-header a{
+    color: #111;
+    text-decoration: none;
+    background: #F9F9F9;
+    height: 30px;
+    padding: 0 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: -2px;
+    border: 2px solid #111;
+    border-radius: 5px;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-top: 5px;
+}
+
+.checkbox-wrapper input {
+    cursor: pointer;
+  position: absolute;
+  opacity: 0;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+}
+
+.custom-checkbox {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #111;
+  background: #FFF;
+  pointer-events: none;
+  transition: background .1s ease;
+  pointer-events: none;
+}
+
+.custom-checkbox::after {
+  content: "";
+  margin-left: -2px;
+  width: 20px;
+  height: 20px;
+  mask: url(../assets/check.svg);
+  background: black;
+  display: none;
+}
+
+.checkbox-wrapper input:checked + .custom-checkbox {
+  background: #5294FF;
+}
+
+.checkbox-wrapper input:checked + .custom-checkbox::after {
+  display: block;
+}
+
+.class-edit{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.class-edit button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: #5294FF;
+    border: 2px solid #111;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'TTNorms', sans-serif;
+    box-shadow: 4px 4px #111;
+    transition: transform .1s ease, box-shadow .1s ease;
+    cursor: pointer;
+}
+
+.class-edit button:active{
+    box-shadow: 0 0 #111;
+    transform: translate(4px, 4px);
+}
