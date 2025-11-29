@@ -1,4 +1,3 @@
-
 const Encriptar = require('bcrypt');
 
 const saltos = 10;
