@@ -23,18 +23,49 @@ function Login() {
   }
 
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("")
+  const [error, setError] = useState("")
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+
+    try{
+      const res = await fetch("http://localhost:3000/api/iniciar-sesion", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          Correo: email,
+          Contraseña: password
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok){
+        setError(data.message || "Error durante el inicio de sesión")
+        return;
+      }
+      localStorage.setItem("usuario", JSON.stringify(data))
+      window.location.href = "/dashboard"
+    } catch (err){
+      console.error(err)
+      setError("Error al conectar con el server")
+    }
+  }
+
 
 
   return (
     <main className='login-main'>
-      <section className='login-inner'>
+      <form className='login-inner' onSubmit={handleSubmit}>
           <div className='login-header'>
             <h1>Inicia sesión en tu cuenta</h1>
             <p>Ingresa tu mail debajo para iniciar sesión en tu cuenta</p>
           </div>
           <div className='email-input'>
             <label htmlFor="">Email</label>
-            <input type="email" name="" id="" placeholder='nombre@empresa.com' onKeyDown={preventSpaces} onInput={cleanSpaces}/>
+            <input type="email" placeholder='nombre@empresa.com' value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={preventSpaces} onInput={cleanSpaces}/>
           </div>
           <div className='password-input'>
             <div className='password-label'>
@@ -47,12 +78,12 @@ function Login() {
             </div>
           </div>
           <div className='login-buttons'>
-            <button>Iniciar sesión</button>
+            <button type='submit'>Iniciar sesión</button>
           </div>
           <div className='link-register'>
             <p>¿No tienes cuenta? <Link to="/signup">¡Regístrate aquí!</Link></p>
           </div>
-      </section>
+      </form>
     </main>
   )
 }

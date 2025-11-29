@@ -1,10 +1,14 @@
-const Encriptar = require('bcrypt');
+const Bcrypt = require('bcrypt');
 
 const saltos = 10;
 
 const EncriptarPassword = async (password) => {
-    const hash = await Encriptar.genSalt(saltos);
-    return Encriptar.hash(password, hash);
+    const salt = await Bcrypt.genSalt(saltos);
+    return Bcrypt.hash(password, salt);
 };
 
-module.exports = { EncriptarPassword };
+const CompararPassword = async (passwordIngresada, passwordHasheada) => {
+    return Bcrypt.compare(passwordIngresada, passwordHasheada);
+};
+
+module.exports = { EncriptarPassword, CompararPassword };

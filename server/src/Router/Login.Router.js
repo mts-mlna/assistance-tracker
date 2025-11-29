@@ -1,9 +1,8 @@
- 
 const Express = require('express');
 
 const Rutas = Express.Router();
 
-const { RegistrarUsuario, IniciarSesion, ListarUsuarios, EliminarUsuario } = require('../Controller/Login.Controller');
+const { RegistrarUsuario, IniciarSesion, ListarUsuarios, EliminarUsuario } = require('../controller/Login.Controller');
 
 Rutas.post('/registrar', RegistrarUsuario);
 Rutas.post('/iniciar-sesion', IniciarSesion);
