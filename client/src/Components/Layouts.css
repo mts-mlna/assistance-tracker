@@ -720,6 +720,7 @@ header{
 /* Login */
 
 .login-main{
+    overflow-y: hidden;
     display: flex;
     padding: 50.5px 0px;
     justify-content: center;
@@ -813,6 +814,7 @@ header{
 }
 
 .login-buttons button{
+    cursor: pointer;
     font-weight: bold;
     font-family: 'TTNorms', sans-serif;
     width: 100%;
@@ -842,6 +844,7 @@ header{
 /* Pantalla de registro/creacion */
 
 .register-main{
+    overflow-y: hidden;
     display: flex;
     padding: 46px 0px;
     justify-content: center;
