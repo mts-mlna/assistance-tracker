@@ -15,29 +15,19 @@ Class Manager es una aplicación web diseñada para facilitar el proceso de toma
 ### Frontend
 - ReactJS (Core)
 
-## 🚀 Instalación
+## 🚀 Instalación y ejecución
 ```bash
 # Clonar el repositorio
 git clone https://github.com/tu-usuario/class-manager.git
 
-# Instalar dependencias del backend
-cd backend
+# Instalar dependencias necesarias
 npm install
 
-# Instalar dependencias del frontend
-cd ../frontend
-npm install
-```
+# Como el proyecto cuenta con concurrently, ejecutar el siguiente script en la carpeta padre:
+npm run dev
 
-## ▶️ Ejecución
-```bash
-# Iniciar backend
-cd backend
-npm start
-
-# Iniciar frontend
-cd ../frontend
-npm start
+# Luego de unos instantes, se abrirá en el navegador automáticamente el localhost del frontend
+localhost:5173
 ```
 
 ## 📄 Licencia
