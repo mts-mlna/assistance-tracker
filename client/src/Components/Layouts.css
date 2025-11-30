@@ -720,6 +720,7 @@ header{
 /* Login */
 
 .login-main{
+    overflow-y: hidden;
     display: flex;
     padding: 50.5px 0px;
     justify-content: center;
@@ -768,6 +769,10 @@ header{
     width: 100%;
 }
 
+.email-input input{
+    padding: 10px !important;
+}
+
 .email-input input::placeholder, .password-input input::placeholder{
     color: #999;
 }
@@ -813,6 +818,7 @@ header{
 }
 
 .login-buttons button{
+    cursor: pointer;
     font-weight: bold;
     font-family: 'TTNorms', sans-serif;
     width: 100%;
@@ -842,6 +848,7 @@ header{
 /* Pantalla de registro/creacion */
 
 .register-main{
+    overflow-y: hidden;
     display: flex;
     padding: 46px 0px;
     justify-content: center;
@@ -1254,15 +1261,19 @@ header{
 .my-classes{
     display: flex;
     justify-content: center;
-    padding: 46px 0px;
+    padding: 46px 0px 196.5px;
     gap: 50px;
     background: #FFE0E0;
     background-image: linear-gradient(90deg, #80808033 1px, #0000 0), linear-gradient(#80808033 1px, #0000 0);
-    background-size: 40px 40px;   
+    background-size: 40px 40px; 
+    height: 100%;  
 }
 
 .my-classes-inner{
     width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .my-classes-grid{
@@ -1383,6 +1394,300 @@ header{
 }
 
 .class-edit button:active{
+    box-shadow: 0 0 #111;
+    transform: translate(4px, 4px);
+}
+
+.my-classes-header{
+    font-family: 'TTNorms', sans-serif;
+}
+
+.my-classes-inner-action{
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-classes-search{
+    display: flex;
+    gap: 25px;
+    width: 50%;
+}
+
+.my-classes-search button{
+    background: #5294FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.my-classes-search input{
+    padding: 10px;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+    border: 2px solid #111;
+    border-radius: 5px;
+    width: 75%;
+}
+
+.my-classes-search input:focus-within{
+    outline: 2px solid #FFF;
+    box-shadow: 0 0 0 4px #111;
+}
+
+.my-classes-buttons{
+    display: flex;
+    gap: 25px;
+    width: 50%;
+    justify-content: flex-end;
+}
+
+.my-classes-buttons button, .my-classes-buttons a{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;    
+    border: 2px solid #111;
+    box-shadow: 4px 4px #111;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'TTNorms', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: navajowhite;
+    color: #000;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+.my-classes-buttons button:active, .my-classes-buttons a:active{
+    box-shadow: 0 0 #111;
+    transform: translate(4px, 4px);
+}
+
+.new-class{
+    width: 25%;
+    background: #5294FF;
+}
+
+.delete-selected-class{
+    background: #FF4D50;
+    width: 30%;
+}
+
+/* Crear clase */
+
+.create-class-main{
+    background-color: #FFE0E0;
+    background-image: linear-gradient(90deg,#8080804d 1px,#0000 0),linear-gradient(#80808090 1px,#0000 0);
+    background-size: 40px 40px;
+    display: flex;
+    justify-content: center;
+    padding: 75px 0;
+}
+
+.create-class-inner{
+    background: #FFF;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #111;
+    border-radius: 5px;
+    box-shadow: 4px 4px #111;
+    gap: 10px;
+    width: 35%;
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+}
+
+.create-class-inner label{
+    font-weight: bold;
+}
+
+.create-class-inner h1{
+    font-size: 16px;
+}
+
+.create-class-inner input{
+    padding: 10px;
+    border: 2px solid #111;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'TTNorms', sans-serif;
+}
+
+.create-class-inner input:focus-within{
+    outline: 2px solid #FFF;
+    box-shadow: 0 0 0 4px #111;
+}
+
+.class-name{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.class-course{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.o, .a{
+    display: flex;
+    gap: 5px;
+    width: 50%;
+    align-items: center;
+    font-family: 'TTNorms', sans-serif;
+    color: #111;
+    font-weight: bold;
+}
+
+.o select:focus-visible, .a select:focus-visible{
+    outline: none !important;
+}
+
+.o{
+    border-right: 2px solid #111;
+}
+.o p{
+    height: fit-content;
+    margin: auto;
+}
+
+.o select{
+    background: #FF4D50;
+    height: 39px;
+    width: 50%;
+    text-align: center;
+    border: none;
+    appearance: none;
+    border-right: 2px solid #111;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.a select{
+    color: #111;
+    background: #FF4D50;
+    height: 39px;
+    width: 50%;
+    text-align: center;
+    border: none;
+    appearance: none;
+    border-right: 2px solid #111;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.a select option{
+    color: #111;
+}
+
+.a p{
+    height: fit-content;
+    margin: auto;
+}
+
+.center{
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid #111;
+    border-radius: 5px;
+    background: #FF4D50;
+}
+
+.lab-group{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.lab-number{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid #111;
+    border-radius: 5px;
+    background: #FF4D50;
+}
+
+.lab-number select{
+    width: 50%;
+    height: 100%;
+    border: none;
+    background: #FF4D50;
+    appearance: none;
+    border-left: 2px solid #111;
+    text-align: center;
+    font-size: 16px;
+}
+
+.lab-number select:focus-visible{
+    outline: none;
+}
+
+.lab-number div input{
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    text-align: center;
+}
+
+.class-quantity{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.quadrimester{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.quadrimester select{
+    padding: 10px;
+    appearance: none;
+    border: 2px solid #111;
+    background: #FF4D50;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'TTNorms', sans-serif;
+    font-weight: bold;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.lab-checkbox{
+    display: flex;
+    gap: 25px;
+}
+
+.class-button{
+    width: 100%;
+}
+
+.class-button button{
+    cursor: pointer;
+    background: #FF4D50;
+    font-family: 'TTNorms', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #111;
+    box-shadow: 4px 4px #111;
+    border-radius: 5px;
+    transition: transform .1s ease, box-shadow .1s ease;
+}
+
+.class-button button:active{
     box-shadow: 0 0 #111;
     transform: translate(4px, 4px);
 }

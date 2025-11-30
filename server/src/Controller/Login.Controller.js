@@ -2,6 +2,7 @@ const db = require('../database/DataBase')
 const { EncriptarPassword, CompararPassword } = require('../utils/PasswordHash');
 const crypto = require("crypto");
 const { enviarCorreoVerificacion } = require("../utils/Email")
+const jwt = require("jsonwebtoken")
 
 const RegistrarUsuario = async (req, res) => {
     try {

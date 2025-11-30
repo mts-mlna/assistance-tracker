@@ -11,33 +11,31 @@ Class Manager es una aplicación web diseñada para facilitar el proceso de toma
 ### Backend
 - **Express:** Para crear el servidor y manejar rutas de manera eficiente.
 - **Router (Express Router):** Para organizar y estructurar las rutas del backend.
+- **Nodemon:** Para la ejecución del backend.
+- **CORS:** Permite que el frontend solicite datos del backend.
+- **Nodemailer:** Para realizar el envío de correos.
+- **bcrypt:** Para hashear contraseñas.
+- **JSONWebToken (JWT):** Para la autenticación del usuario.
+- **Concurrently:** Permite ejecutar varios comandos o scripts de npm de forma simultánea.
+- **npm run all:** Permite ejecutar múltiples scripts de npm de manera secuencial.
+- **sqlite3:** Base de datos utilizada en este proyecto.
 
 ### Frontend
 - ReactJS (Core)
 
-## 🚀 Instalación
+## 🚀 Instalación y ejecución
 ```bash
 # Clonar el repositorio
 git clone https://github.com/tu-usuario/class-manager.git
 
-# Instalar dependencias del backend
-cd backend
+# Instalar dependencias necesarias
 npm install
 
-# Instalar dependencias del frontend
-cd ../frontend
-npm install
-```
+# Como el proyecto cuenta con concurrently, ejecutar el siguiente script en la carpeta padre:
+npm run dev
 
-## ▶️ Ejecución
-```bash
-# Iniciar backend
-cd backend
-npm start
-
-# Iniciar frontend
-cd ../frontend
-npm start
+# Luego de unos instantes, se abrirá en el navegador automáticamente el localhost del frontend
+localhost:5173
 ```
 
 ## 📄 Licencia
