@@ -1,54 +1,78 @@
 const db = require('../database/DataBase')
 const { EncriptarPassword, CompararPassword } = require('../utils/PasswordHash');
+const crypto = require("crypto");
+const { enviarCorreoVerificacion } = require("../utils/Email")
 
 const RegistrarUsuario = async (req, res) => {
     try {
-        const { Nombre, Correo, Contraseña, Rol } = req.body;
+        const { Correo, Contraseña } = req.body;
 
-        if (!Nombre || !Correo || !Contraseña || !Rol) {
-            return res.status(400).json({ mensaje: 'Faltan datos obligatorios' });
+        if (!Correo || !Contraseña) {
+            return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
         }
 
-        const VerificarUsuario = `SELECT * FROM Usuario WHERE Correo = ?`;
+        const Nombre = Correo.split("@")[0];
+        const Rol = "Desconocido";
 
-        db.get(VerificarUsuario, [Correo], async (error, fila) => {
-            if (error) {
-                console.error('❌ Error al verificar usuario:', error.message);
-                return res.status(500).json({ Error: 'Error del servidor' });
-            }
+        db.get("SELECT * FROM Usuario WHERE Correo = ?", [Correo], async (error, fila) => {
+            if (error) return res.status(500).json({ Error: "Error del servidor" });
 
             if (fila) {
-                return res.status(400).json({ mensaje: 'El usuario ya existe' });
+                return res.status(400).json({ mensaje: "El usuario ya existe" });
             }
 
-            // Hash dentro del callback
             const Hash = await EncriptarPassword(Contraseña);
 
-            const InsertarUsuario = `
-                INSERT INTO Usuario (Nombre, Correo, Contraseña, Rol)
-                VALUES (?, ?, ?, ?)
+            // generar token único
+            const TokenVerificacion = crypto.randomBytes(32).toString("hex");
+
+            const Insertar = `
+                INSERT INTO Usuario (Nombre, Correo, Contraseña, Rol, Verificado, TokenVerificacion)
+                VALUES (?, ?, ?, ?, 0, ?)
             `;
 
-            db.run(InsertarUsuario, [Nombre, Correo, Hash, Rol], function (error) {
-                if (error) {
-                    console.error('❌ Error al registrar usuario:', error.message);
-                    return res.status(500).json({ Error: 'Error al registrar el usuario' });
+            db.run(Insertar, [Nombre, Correo, Hash, Rol, TokenVerificacion], async function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).json({ mensaje: "Error al registrar usuario" });
                 }
 
+                // ENVIAR CORREO
+                await enviarCorreoVerificacion(Correo, TokenVerificacion);
+
                 return res.status(201).json({
-                    mensaje: 'Usuario registrado con éxito',
-                    Id: this.lastID,
-                    Nombre,
-                    Correo,
-                    Rol
+                    mensaje: "Usuario registrado. Revisa tu email para verificar tu cuenta."
                 });
             });
         });
 
-    } catch (error) {
-        console.error('❌ Error en servidor:', error.message);
-        return res.status(500).json({ Error: 'Error del servidor' });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ mensaje: "Error del servidor" });
     }
+};
+
+const VerificarCuenta = (req, res) => {
+    const { token } = req.params;
+
+    const BuscarToken = `SELECT * FROM Usuario WHERE TokenVerificacion = ?`;
+
+    db.get(BuscarToken, [token], (err, usuario) => {
+        if (err) return res.status(500).json({ mensaje: "Error del servidor" });
+        if (!usuario) return res.status(400).json({ mensaje: "Token inválido" });
+
+        const Verificar = `
+            UPDATE Usuario 
+            SET Verificado = 1, TokenVerificacion = NULL
+            WHERE Id = ?
+        `;
+
+        db.run(Verificar, [usuario.Id], (err2) => {
+            if (err2) return res.status(500).json({ mensaje: "Error al activar la cuenta" });
+
+            return res.send(`<h1>Cuenta verificada con éxito ✔</h1>`);
+        });
+    });
 };
 
 const IniciarSesion = (req, res) => {
@@ -102,4 +126,4 @@ const EliminarUsuario = (req, res) => {
     });
 };
 
-module.exports = { RegistrarUsuario, IniciarSesion, ListarUsuarios, EliminarUsuario };
+module.exports = { RegistrarUsuario, IniciarSesion, ListarUsuarios, EliminarUsuario, VerificarCuenta };

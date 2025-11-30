@@ -772,7 +772,7 @@ header{
     color: #999;
 }
 
-.email-input input:focus-within, .password-input input:focus-within{
+.email-input input:focus-within{
     outline: 2px solid #FFF;
     box-shadow: 0 0 0 4px #111;
 }
@@ -788,6 +788,13 @@ header{
     border: 2px solid #111;
     padding: 10px;
     cursor: pointer;
+}
+
+.password-field:focus-within{
+    outline: 2px solid #FFF;
+    box-shadow: 0 0 0 4px #111;
+    margin-right: -2px;
+    border-radius: 5px;
 }
 
 .password-label{
@@ -838,10 +845,16 @@ header{
     display: flex;
     padding: 46px 0px;
     justify-content: center;
-    gap: 50px;
     background: #F9F9F9;
     background-image: linear-gradient(90deg, #80808033 1px, #0000 0), linear-gradient(#80808033 1px, #0000 0);
     background-size: 40px 40px;
+}
+
+.register-container{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    justify-content: center;
 }
 
 .register-help{
@@ -887,7 +900,11 @@ header{
 }
 
 .register-show-password{
-    margin-left: 330px !important;
+    margin-left: 306px !important;
+}
+
+.register-password-field:focus-within{
+    margin-right: 0px;
 }
 
 /* Dashboard del director/vice/secretario */
