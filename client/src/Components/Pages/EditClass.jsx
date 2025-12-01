@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-function CreateClass() {
+function EditClass() {
+  const { id } = useParams();
+
   const [nombreMateria, setNombreMateria] = useState("");
   const [cantidadClases, setCantidadClases] = useState("");
   const [cuatrimestre, setCuatrimestre] = useState("");
@@ -11,13 +14,6 @@ function CreateClass() {
   const [labInputValue, setLabInputValue] = useState("");
   const [labValue, setLabValue] = useState("");
   const [noAplica, setNoAplica] = useState(false);
-
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
-  if (!usuario) {
-    alert("Debes iniciar sesión para continuar");
-    return;
-  }
-
 
   // --- Restricciones de curso ---
   const restricciones = {
@@ -79,48 +75,66 @@ function CreateClass() {
     }
   }, [noAplica]);
 
-  // --- Enviar al backend ---
+  // --- Precargar datos desde el backend ---
+  useEffect(() => {
+    const fetchClase = async () => {
+      const res = await fetch(`http://localhost:3000/api/clases/${id}`);
+      const data = await res.json();
+      const clase = data.Clase;
+
+      setNombreMateria(clase.NombreMateria);
+      setCantidadClases(clase.CantidadClases);
+      setCuatrimestre(clase.Cuatrimestre);
+
+      // Parsear curso (ej: "3°2a")
+      if (clase.Curso) {
+        const match = clase.Curso.match(/^(\d+)°(\d+)a$/);
+        if (match) {
+          setCourseOValue(match[1]);
+          setCourseAValue(match[2]);
+        }
+      }
+
+      // Grupo de taller
+      if (clase.GrupoTaller) {
+        const parts = clase.GrupoTaller.split(" - ");
+        if (parts.length === 2) {
+          setLabInputValue(parts[0].split("°")[0]); // ej: "3"
+          setLabSelectValue(parts[1]);              // ej: "6"
+        }
+      } else {
+        setNoAplica(true);
+      }
+    };
+    fetchClase();
+  }, [id]);
+
+  // --- Enviar cambios ---
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
-    if (!usuario) {
-      alert("Debes iniciar sesión como profesor para crear una clase");
-      return;
-    }
-
     const curso = `${courseOValue}°${courseAValue}a`;
     const grupoTaller = noAplica ? null : `${courseOValue}°${courseAValue} - ${labSelectValue}`;
 
-    try {
-      const res = await fetch("http://localhost:3000/api/crear-clase", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          NombreMateria: nombreMateria,
-          Curso: curso,
-          GrupoTaller: grupoTaller,
-          CantidadClases: parseInt(cantidadClases),
-          Cuatrimestre: cuatrimestre,
-          ProfesorId: usuario.Id
-        })
-      });
+    const res = await fetch(`http://localhost:3000/api/editar-clase/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        NombreMateria: nombreMateria,
+        Curso: curso,
+        GrupoTaller: grupoTaller,
+        CantidadClases: parseInt(cantidadClases),
+        Cuatrimestre: cuatrimestre
+      })
+    });
 
-      const data = await res.json();
-      if (!res.ok) {
-        alert(data.mensaje || "Error al crear clase");
-        return;
-      }
-      alert("Clase creada con éxito");
-    } catch (err) {
-      console.error(err);
-      alert("Error al conectar con el servidor");
-    }
+    const data = await res.json();
+    alert(data.mensaje || "Clase modificada");
   };
 
-  return (
+    return (
     <main className='create-class-main'>
       <form className='create-class-inner' onSubmit={handleSubmit}>
-        <h1>Crear una clase nueva</h1>
+        <h1>Editar clase</h1>
 
         {/* Nombre materia */}
         <div className='class-name'>
@@ -190,11 +204,12 @@ function CreateClass() {
 
         {/* Botón */}
         <div className='class-button'>
-          <button type="submit">Crear clase</button>
+          <button type="submit">Guardar cambios</button>
         </div>
       </form>
     </main>
   );
 }
 
-export default CreateClass;
+
+export default EditClass;

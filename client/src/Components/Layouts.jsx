@@ -9,6 +9,7 @@ import PrincipalTable from './Pages/PrincipalTable'
 import Classes from './Pages/Classes'
 import StudentInfo from './Pages/StudentInfo'
 import CreateClass from './Pages/CreateClass'
+import EditClass from './Pages/EditClass'; 
 
 function Layouts() {
   return (
@@ -17,13 +18,14 @@ function Layouts() {
         <Header />
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/Table' element={<Table/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/admin/students' element={<PrincipalTable/>}/>
           <Route path='/classes' element={<Classes/>}/>
           <Route path='/classes/new' element={<CreateClass/>}/>
           <Route path='/admin/info/1' element={<StudentInfo/>}/>
+          <Route path="/classes/edit/:id" element={<EditClass />} />
+          <Route path="/table/:id" element={<Table />} /> {/* 👈 nueva ruta */}
         </Routes>
       </Router>
     </>

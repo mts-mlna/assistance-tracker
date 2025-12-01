@@ -1,45 +1,133 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Classes() {
-  return (
-    <main className='my-classes'>
-        <div className='my-classes-inner'>
-            <section className='my-classes-header'>
-                <h1>Mis Cursos</h1>
-                <div className='my-classes-inner-action'>
-                    <div className='my-classes-search'>
-                        <input type="text" name="" id="" placeholder='Filtrar clase por nombre, curso o grupo de taller...' />
-                        <button><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
-                    </div>
-                    <div className='my-classes-buttons'>
-                        <button className='delete-selected-class'><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>Eliminar selección</button>
-                        <Link to="/classes/new" className='new-class'><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Nueva clase</Link>
-                    </div>
-                </div>
-            </section>
-            <section className='my-classes-grid'>
-                <div className='class'>
-                    <div className='class-card-header'>
-                        <div className='checkbox-wrapper'>
-                            <input type="checkbox" name="" id="" />
-                            <span className='custom-checkbox'></span>
+    const [clases, setClases] = useState([]);
+    const [selected, setSelected] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
+
+    const usuario = JSON.parse(localStorage.getItem("usuario")); // 👈 lo usamos en la vista
+
+    useEffect(() => {
+        const fetchClases = async () => {
+            try {
+                if (!usuario) {
+                    alert("Debes iniciar sesión para continuar");
+                    return;
+                }
+                let res;
+                if (usuario.Rol === "Preceptor") {
+                    res = await fetch("http://localhost:3000/api/clases");
+                } else {
+                    res = await fetch(`http://localhost:3000/api/clases/profesor/${usuario.Id}`);
+                }
+                const data = await res.json();
+                setClases(data.Clases || []);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchClases();
+    }, [usuario]);
+
+    const toggleSelect = (id) => {
+        setSelected(prev =>
+            prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+        );
+    };
+
+    const handleDeleteSelected = async () => {
+        for (const id of selected) {
+            await fetch(`http://localhost:3000/api/eliminar-clase/${id}`, {
+                method: "DELETE"
+            });
+        }
+        setClases(clases.filter(c => !selected.includes(c.Id)));
+        setSelected([]);
+    };
+
+    const filteredClases = clases.filter(c => {
+        const term = searchTerm.toLowerCase();
+        return (
+            c.NombreMateria.toLowerCase().includes(term) ||
+            c.Curso.toLowerCase().includes(term) ||
+            (c.GrupoTaller ? c.GrupoTaller.toLowerCase().includes(term) : false) ||
+            c.Cuatrimestre.toLowerCase().includes(term)
+        );
+    });
+
+    return (
+        <main className='my-classes'>
+            <div className='my-classes-inner'>
+                <section className='my-classes-header'>
+                    <h1>{usuario?.Rol === "Preceptor" ? "Cursos" : "Mis Cursos"}</h1>
+                    <div className='my-classes-inner-action'>
+                        <div className='my-classes-search'>
+                            <input
+                                type="text"
+                                placeholder='Filtrar clase por nombre, curso, grupo de taller o cuatrimestre...'
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                            <button onClick={() => setSearchTerm("")}>Limpiar</button>
                         </div>
-                        <Link><h1>Tomás Giles</h1></Link>
+
+                        {/* 👇 Ocultar botones si es Preceptor */}
+                        {usuario?.Rol !== "Preceptor" && (
+                            <div className='my-classes-buttons'>
+                                <button className='delete-selected-class' onClick={handleDeleteSelected}>
+                                    Eliminar selección
+                                </button>
+                                <Link to="/classes/new" className='new-class'>Nueva clase</Link>
+                            </div>
+                        )}
                     </div>
-                    <div>
-                        <p>Curso: <b>sektimo zejunda</b></p>
-                        <p>Grupo: <b>sietepuntokuatro</b></p>
-                        <p>Cuatrimestre: <b>primero</b></p>
-                    </div>
-                    <div className='class-edit'>
-                        <button><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>Editar    </button>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-  )
+                </section>
+                <section className='my-classes-grid'>
+                    {filteredClases.map(clase => (
+                        <div key={clase.Id} className='class'>
+                            <div className='class-card-header'>
+                                <div className='checkbox-wrapper'>
+                                    {usuario?.Rol !== "Preceptor" && (
+                                        <>
+                                            <input
+                                                type="checkbox"
+                                                checked={selected.includes(clase.Id)}
+                                                onChange={() => toggleSelect(clase.Id)}
+                                            />
+                                            <span className='custom-checkbox'></span>
+                                        </>
+                                    )}
+                                </div>
+                                {/* 👇 ahora el link lleva al curso específico */}
+                                <Link to={`/table/${clase.Id}`}>
+                                    <h1>{clase.NombreMateria}</h1>
+                                </Link>
+                            </div>
+
+                            <div>
+                                <p>Curso: <b>{clase.Curso}</b></p>
+                                <p>Grupo: <b>{clase.GrupoTaller || "No aplica"}</b></p>
+                                <p>Cuatrimestre: <b>{clase.Cuatrimestre}</b></p>
+                                {usuario?.Rol === "Preceptor" && (
+                                    <p>Profesor: <b>{clase.ProfesorNombre}</b></p>
+                                )}
+                            </div>
+                            {/* 👇 Ocultar botón Editar si es Preceptor */}
+                            {usuario?.Rol !== "Preceptor" && (
+                                <div className='class-edit'>
+                                    <button onClick={() => navigate(`/classes/edit/${clase.Id}`)}>
+                                        Editar
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </section>
+            </div>
+        </main>
+    );
 }
 
-export default Classes
+export default Classes;
