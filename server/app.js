@@ -8,7 +8,7 @@ const App = express();
 
 // Middlewares
 App.use(cors({
-  origin: "http://localhost:5173",
+  origin: "http://localhost:5173", // o 127.0.0.1:5173 según tu frontend
   credentials: true
 }));
 App.use(express.json());
@@ -17,11 +17,13 @@ App.use(express.json());
 const RutasClase = require('./src/Router/Class.Router');
 const RutasLogin = require('./src/Router/Login.Router');
 const alumnoRoutes = require('./src/Router/Alumno.Router');
+const asistenciaRoutes = require('./src/Router/Asistencia.Router');
 
-// Montaje bajo /api (usar SIEMPRE la misma variable: App)
+// Montaje bajo /api
 App.use('/api', alumnoRoutes);
 App.use('/api', RutasLogin);
 App.use('/api', RutasClase);
+App.use('/api', asistenciaRoutes);
 
 // Healthcheck opcional
 App.get('/api/health', (_req, res) => res.status(200).json({ ok: true }));
