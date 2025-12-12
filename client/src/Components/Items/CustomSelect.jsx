@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import Down from "../../assets/chevron-down.svg"
 
 export default function CustomSelect({ options, value, placeholder, onChange, disabled }) {
   const [open, setOpen] = useState(false);
