@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import Layouts from './Components/Layouts'
-import Header from './Components/Global/Header'
-import Sidebar from './Components/Global/Sidebar'
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
 
   return (
-    <div>
+    <AuthProvider>
       <Layouts />
-    </div>
+    </AuthProvider>
   )
 }
 

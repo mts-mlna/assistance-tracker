@@ -14,15 +14,15 @@ function Table() {
     },
     {
       id: 2,
-      nombre: "Mánchez, Bruno Ezequiel",
-      curso: "7º4ª",
+      nombre: "Torres, Antu Paladea",
+      curso: "7º1ª",
       grupo: "7.4",
       asistencia: "Ausente",
       checked: false
     },
     {
       id: 3,
-      nombre: "Hánchez, Bruno Ezequiel",
+      nombre: "Molina, Matias Ezequiel",
       curso: "7º4ª",
       grupo: "7.4",
       asistencia: "Ausente",
@@ -30,7 +30,7 @@ function Table() {
     },
     {
       id: 4,
-      nombre: "Gánchez, Bruno Ezequiel",
+      nombre: "López, Alexis",
       curso: "7º4ª",
       grupo: "7.4",
       asistencia: "Ausente",
@@ -38,7 +38,7 @@ function Table() {
     },
     {
       id: 5,
-      nombre: "Fánchez, Bruno Ezequiel",
+      nombre: "Mamani, Romina Karen",
       curso: "7º4ª",
       grupo: "7.4",
       asistencia: "Ausente",
@@ -46,7 +46,7 @@ function Table() {
     },
     {
       id: 6,
-      nombre: "Dánchez, Bruno Ezequiel",
+      nombre: "Alegre, Luciana",
       curso: "7º4ª",
       grupo: "7.4",
       asistencia: "Ausente",
@@ -122,34 +122,73 @@ function Table() {
   }
 
   const handleMarkPresent = (id) => {
-    const updated = students.map(student =>
-      student.id === id ? { ...student, checked: !student.checked } : student
-    );
-    setStudents(updated);
-  };  
+    setStudents(prev => {
+      const updated = prev.map(student =>
+        student.id === id ? { ...student, checked: !student.checked } : student
+      );
+      setFilteredStudents(filtered =>
+        filtered.map(student =>
+          student.id === id ? { ...student, checked: !student.checked } : student
+        )
+      );
+
+      return updated;
+    });
+  };
+
 
   useEffect(() => {
-    // Ordenar por nombre de forma ascendente al cargar la página
     const sorted = [...students].sort((a, b) => 
       a.nombre.localeCompare(b.nombre)
     );
     setStudents(sorted);
-  }, []); // ← el array vacío hace que se ejecute una sola vez
+  }, []);
 
+  const [searchText, setSearchText] = useState("");
+  const [filteredStudents, setFilteredStudents] = useState(students);
+
+  const handleSearch = () => {
+    const texto = searchText.toLowerCase();
+
+    const resultado = students.filter((alumno) =>
+      alumno.nombre.toLowerCase().includes(texto)
+    );
+
+    setFilteredStudents(resultado);
+  };
+
+  const [now, setNow] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNow(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
 
   return (
     <main className='dashboard-main'>
+      <>
+        <style>
+        {`
+          body {
+          overflow-y: hidden;
+          }
+        `}
+      </style>
+      </>
       <section className='my-class'>
         <div className='my-class-inner'>
-          <h1>CS. NATURALES</h1>
+          <h1>PDISC</h1>
           <div className='date-hour'>
-            <p>Fecha: 7/7/2025</p>
-            <p>Hora: 15:10</p>
+            <p>Fecha: 05/12/2025</p>
+            <p>Hora: 16:30</p>
           </div>
           <div className='date-hour'>
-            <p>Curso: 7º2ª</p>
-            <p>Grupo: -</p>
+            <p>Fecha: {now.toLocaleDateString()}</p>
+            <p>Hora: {now.toLocaleTimeString()}</p>
           </div>
           <div className='date-hour'>
             <p>Cuatrimestre: 2</p>
@@ -159,8 +198,8 @@ function Table() {
       <section className='search-center'>
         <div className='search-inner'>
           <div className='search'>
-            <input type="text" name="" id="" placeholder='Escribir el nombre o apellido de un alumno...' />
-            <button><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+            <input type="text" name="" id="" placeholder='Escribir el nombre o apellido de un alumno...' value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+            <button onClick={handleSearch}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
           </div>
           <div className='header-actions'>
             <button className='absent' onClick={handleClickSP}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>Ausente</button>
@@ -192,10 +231,10 @@ function Table() {
             </thead>
             <tbody>
               {students.map(student => (
-              <tr key={student.id}>
+              <tr key={filteredStudents.id}>
                 <td>
                   <label className='professor-checkbox-wrapper'>
-                    <input type="checkbox" checked={student.checked} onChange={() => handleMarkPresent(student.id)} disabled />
+                    <input type="checkbox" checked={student.checked} onChange={() => handleMarkPresent(student.id)} />
                     <span className='custom-checkbox'></span>
                   </label>
                 </td>

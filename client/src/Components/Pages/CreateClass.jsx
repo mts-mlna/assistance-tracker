@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import CustomSelect from '../Items/CustomSelect';
 
 function CreateClass() {
 
@@ -24,6 +25,14 @@ function CreateClass() {
 
   // Obtener opciones válidas según "o"
   const opcionesFiltradasA = courseOValue ? restricciones[courseOValue] : opcionesA;
+
+  const opcionesAFormatoSelect = [
+    { value: "", label: "-" },
+    ...opcionesFiltradasA.map(op => ({
+      value: op,
+      label: op
+    }))
+  ];
 
   // Si el usuario tenía un valor que ya no es válido, resetear
   if (courseAValue && courseOValue && !opcionesFiltradasA.includes(courseAValue)) {
@@ -77,11 +86,13 @@ function CreateClass() {
   };
 
   const labKey = `${courseOValue}-${courseAValue}`;
-  const labOptions = labRules[labKey] || [];  // Si no existe combinación, queda vacío
+  const labOptions = labRules[labKey] || [];
 
-  if (labValue && !labOptions.includes(labValue)) {
-    setLabValue("");
-  }
+  useEffect(() => {
+    if (labValue && !labOptions.includes(labValue)) {
+      setLabValue("");
+    }
+  }, [courseOValue, courseAValue]);
 
   const [noAplica, setNoAplica] = useState(false);
 
@@ -90,8 +101,8 @@ function CreateClass() {
       const newValue = !prev;
 
       if (newValue) {
-        setLabInputValue(""); // solo limpia el input del lab-group
-        setLabValue("");      // solo limpia el select del lab-group
+        setLabInputValue("");
+        setLabValue("");
       }
 
       return newValue;
@@ -110,6 +121,32 @@ function CreateClass() {
     }
   }, [noAplica]);
 
+  const courseOptions = [
+    { value: "", label: "-" },
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+    { value: "5", label: "5" },
+    { value: "6", label: "6" },
+    { value: "7", label: "7" }
+  ];
+
+  const labSelectOptions = [
+    { value: "", label: "-" },
+    ...labOptions.map(op => ({
+      value: op,
+      label: op
+    }))
+  ];
+
+  const nivelOptions = ["-", "Primero", "Segundo"].map(opt => ({
+    value: opt === "-" ? "" : opt,
+    label: opt
+  }));
+
+  const [nivelValue, setNivelValue] = useState("");
+
   return (
     <main className='create-class-main'>
       <div className='create-class-inner'>
@@ -122,25 +159,21 @@ function CreateClass() {
           <label htmlFor="">Curso</label>
           <div className="center">
             <div className='o'>
-              <select value={courseOValue} onChange={(e) => setCourseOValue(e.target.value)}>
-                <option value="">-</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-              </select>
+              <CustomSelect
+                options={courseOptions}
+                value={courseOValue}                 // value controlado
+                onChange={(opt) => setCourseOValue(String(opt.value))}
+                placeholder="-"
+              />
               <p>o</p>
             </div>
             <div className='a'>
-              <select value={courseAValue} onChange={(e) => setCourseAValue(e.target.value)}>
-                <option value="">-</option>
-                {opcionesFiltradasA.map((op) => (
-                  <option key={op} value={op}>{op}</option>
-                ))}
-              </select>
+              <CustomSelect
+                options={opcionesAFormatoSelect}
+                value={courseAValue}
+                placeholder="-"
+                onChange={(opt) => setCourseAValue(opt.value)}
+              />
               <p>a</p>
             </div>
           </div>
@@ -148,15 +181,16 @@ function CreateClass() {
         <div className='lab-group'>
           <label htmlFor="">Grupo de taller</label>
           <div className='lab-number'>
-            <div>
+            <div className='mujajaja'>
               <input type="text" value={labInputValue} disabled/>
             </div>
-            <select value={labSelectValue} onChange={(e) => setLabSelectValue(e.target.value)} disabled={noAplica}>
-              <option value="">-</option>
-              {labOptions.map((op) => (
-                <option key={op} value={op}>{op}</option>
-              ))}
-            </select>
+              <CustomSelect
+                options={labSelectOptions}
+                value={labValue}
+                placeholder="-"
+                disabled={noAplica}
+                onChange={(opt) => setLabValue(opt.value)}
+              />
           </div>
           <div className='lab-checkbox'>
             <input type="checkbox" checked={noAplica} onChange={handleNoAplicaChange} />
@@ -169,11 +203,12 @@ function CreateClass() {
         </div>
         <div className='quadrimester'>
           <label htmlFor="">Cuatrimestre:</label>
-          <select name="" id="">
-            <option value="">-</option>
-            <option value="">Primero</option>
-            <option value="">Segundo</option>
-          </select>
+          <CustomSelect
+            options={nivelOptions}
+            value={nivelValue}
+            onChange={(opt) => setNivelValue(String(opt.value))}
+            placeholder="-"
+          />
         </div>
         <div className='class-button'>
           <button>Crear clase</button>

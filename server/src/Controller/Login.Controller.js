@@ -101,12 +101,34 @@ const IniciarSesion = (req, res) => {
             return res.status(400).json({ mensaje: 'Contraseña incorrecta' });
         }
 
+        // 🔥 Generar JWT
+        const token = jwt.sign(
+            {
+                id: usuario.Id,
+                nombre: usuario.Nombre,
+                correo: usuario.Correo,
+                rol: usuario.Rol
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        // 🔥 Guardarlo en una cookie
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false, // cambiar a true en producción
+            sameSite: "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
+
         return res.status(200).json({
             mensaje: 'Inicio de sesión exitoso',
-            Id: usuario.Id,
-            Nombre: usuario.Nombre,
-            Correo: usuario.Correo,
-            Rol: usuario.Rol
+            usuario: {
+                id: usuario.Id,
+                nombre: usuario.Nombre,
+                correo: usuario.Correo,
+                rol: usuario.Rol
+            }
         });
     });
 };

@@ -9,6 +9,78 @@
     src: url(../assets/TTNormsProVariable.ttf);
 }
 
+.custom-select {
+  position: relative;
+  width: 200px;
+  font-family: sans-serif;
+}
+
+.select-button {
+    font-family: 'TTNorms', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+  width: 100%;
+  background: #FF4D50;
+  border: none;
+  border-right: 2px solid #111;
+  border-radius: 5px 0 0 5px;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow {
+  margin-left: 8px;
+  margin-top: 8px;
+}
+
+@keyframes select-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.select-options {
+  position: absolute;
+  top: 110%;
+  width: 100%;
+  background: #FF4D50;
+  border: 2px solid black;
+  border-radius: 6px;
+  list-style: none;
+  padding: 5px 0;
+  margin: 0;
+  z-index: 10;
+  animation: select-enter 150ms ease-out;
+  transform-origin: top center;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.option:hover {
+  outline: 2px solid #111;
+  border-radius: 5px;
+}
+
+.select-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
 /* Encabezado */
 
 header{
@@ -91,7 +163,7 @@ header{
   right: -250px;
   width: 250px;
   height: 100%;
-  background: #111;
+  background: #1f1f1f;
   color: white;
   transition: right 0.3s ease;
   z-index: 1000;
@@ -99,7 +171,7 @@ header{
   display: flex;
   flex-direction: column;
   justify-content: space-between !important;
-  border-left: 4px solid #F9F9F9;
+  border-left: 4px solid #000;
 }
 
 .sidebar.open{
@@ -167,30 +239,38 @@ header{
   font-family: 'TTNorms', sans-serif;
 }
 
-.profile a{
+.profile p{
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.profile a div{
+.profile p div{
   display: flex;
   flex-direction: column;
 }
 
-.profile a div h1{
+.profile p div h1{
   font-size: 20px;
   line-height: 18px;
   text-transform: uppercase;
   font-weight: bold;
+  max-width: 145px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.profile a div p{
+.profile p div p{
   font-size: 12px;
   font-weight: bold;
+  max-width: 130px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.profile a img{
+.profile p img{
   height: 75px;
   border-radius: 100px;
   padding: 5px;
@@ -199,6 +279,27 @@ header{
 .action-buttons{
   display: flex;
   flex-direction: column;
+}
+
+.logout{
+    font-family: 'TTNorms', sans-serif;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  width: 100%;
+  color: #F9F9F9;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 6.4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.logout:hover{
+    background: #333;
 }
 
 .open-sidebar{
@@ -238,6 +339,7 @@ header{
     flex-direction: column;
     justify-content: center;
     gap: 25px;
+    animation: select-enter 150ms ease-out;
   background: #FFE0E0;
   padding: 20px;
   border-radius: 10px;
@@ -361,6 +463,7 @@ header{
   width: 20px;
   height: 20px;
   margin: 0;
+  z-index: 2;
 }
 
 .custom-checkbox {
@@ -373,6 +476,8 @@ header{
   background: #FFF;
   pointer-events: none;
   transition: background .1s ease;
+  margin-top: -4px;
+  z-index: 100;
 }
 
 .custom-checkbox::after {
@@ -421,10 +526,11 @@ header{
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px 0;
+    padding: 10px 0 265px;
     background-color: #FFE0E0;
     background-image: linear-gradient(90deg,#8080804d 1px,#0000 0),linear-gradient(#80808090 1px,#0000 0);
     background-size: 40px 40px;
+    overflow-y: hidden;
 }
 
 .search-center{
@@ -798,7 +904,6 @@ header{
 .password-field:focus-within{
     outline: 2px solid #FFF;
     box-shadow: 0 0 0 4px #111;
-    margin-right: -2px;
     border-radius: 5px;
 }
 
@@ -1375,7 +1480,7 @@ header{
     width: 100%;
 }
 
-.class-edit button{
+.class-edit a{
     width: 100%;
     display: flex;
     align-items: center;
@@ -1391,6 +1496,8 @@ header{
     box-shadow: 4px 4px #111;
     transition: transform .1s ease, box-shadow .1s ease;
     cursor: pointer;
+    color: #111;
+    text-decoration: none;
 }
 
 .class-edit button:active{
@@ -1536,7 +1643,6 @@ header{
 
 .o, .a{
     display: flex;
-    gap: 5px;
     width: 50%;
     align-items: center;
     font-family: 'TTNorms', sans-serif;
@@ -1554,6 +1660,8 @@ header{
 .o p{
     height: fit-content;
     margin: auto;
+    width: 75%;
+    text-align: center;
 }
 
 .o select{
@@ -1568,17 +1676,8 @@ header{
     font-weight: bold;
 }
 
-.a select{
-    color: #111;
-    background: #FF4D50;
-    height: 39px;
+.a .custom-select{
     width: 50%;
-    text-align: center;
-    border: none;
-    appearance: none;
-    border-right: 2px solid #111;
-    font-size: 16px;
-    font-weight: bold;
 }
 
 .a select option{
@@ -1613,15 +1712,11 @@ header{
     background: #FF4D50;
 }
 
-.lab-number select{
-    width: 50%;
-    height: 100%;
-    border: none;
-    background: #FF4D50;
-    appearance: none;
+.lab-number button{
+    border-right: none;
     border-left: 2px solid #111;
-    text-align: center;
-    font-size: 16px;
+    width: 100%;
+    border-radius: 0 5px 5px 0;
 }
 
 .lab-number select:focus-visible{
@@ -1633,6 +1728,13 @@ header{
     background: transparent;
     font-size: 16px;
     text-align: center;
+    width: fit-content;
+    color: #111;
+    font-weight: bold;
+}
+
+.mujajaja{
+    width: 10%;
 }
 
 .class-quantity{
@@ -1647,15 +1749,13 @@ header{
     flex-direction: column;
 }
 
-.quadrimester select{
-    padding: 10px;
-    appearance: none;
-    border: 2px solid #111;
-    background: #FF4D50;
+.quadrimester .custom-select{
+    width: 100%;
+}
+
+.quadrimester button{
     border-radius: 5px;
-    font-size: 16px;
-    font-family: 'TTNorms', sans-serif;
-    font-weight: bold;
+    border: 2px solid #111;
 }
 
 input::-webkit-outer-spin-button,
